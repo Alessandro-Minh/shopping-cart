@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-cart-header',
@@ -6,6 +6,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartHeaderComponent {
 
-  numberItems: number = 99;
+  @Input() numberItems:number;
 
 }

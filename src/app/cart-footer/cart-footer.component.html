@@ -1,7 +1,8 @@
 <section class="container">
     <div class="promotion">
       <label for="promo-code">Have A Promo Code?</label>
-      <input type="text" id="promo-code" /> <button type="button"></button>
+      <input type="text" [(ngModel)]="promoCode" /> 
+      <button type="button" (click)="applyPromoCode()"></button>
     </div>
 
     <div class="summary">

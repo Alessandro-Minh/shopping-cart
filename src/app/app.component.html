@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Shopping Cart</title>
-
   </head>
   <body>
     <main>
-      <app-cart-header></app-cart-header>
-      <app-cart-content></app-cart-content>
-      <app-cart-footer></app-cart-footer>
+      <app-cart-header [numberItems]="4"> </app-cart-header>
+      <app-cart-content [products]="products"></app-cart-content>
+      <app-cart-footer [promoCode]="promoCode" [numberSubtotal]="numberSubtotal" [numberVAT]="numberVAT" [numberTotal]="numberTotal"></app-cart-footer>
     </main>
   </body>
 </html>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-cart-footer',
@@ -6,8 +6,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartFooterComponent {
 
-numberSubtotal  : number = 100000000;  
-numberVAT : number = 6000000;  
-numberTotal : number = 150000000;  
+@Input() promoCode:string;  
+@Input() numberSubtotal:number;  
+@Input() numberVAT:number;  
+@Input() numberTotal:number;  
+
+applyPromoCode(){
+  console.log(this.promoCode)
+}
 
 }
+
+
