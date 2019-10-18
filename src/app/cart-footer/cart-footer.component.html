@@ -1,0 +1,18 @@
+<section class="container">
+    <div class="promotion">
+      <label for="promo-code">Have A Promo Code?</label>
+      <input type="text" id="promo-code" /> <button type="button"></button>
+    </div>
+
+    <div class="summary">
+      <ul>
+        <li>Subtotal <span>{{numberSubtotal | currency:'VND':'symbol':'4.2-2':'vi'}}</span></li>
+        <li>Tax <span>{{numberVAT | currency:'VND':'symbol':'4.2-2':'vi'}}</span></li>
+        <li class="total">Total <span>{{numberTotal | currency:'VND':'symbol':'4.2-2':'vi'}}</span></li>
+      </ul>
+    </div>
+
+    <div class="checkout">
+      <button type="button">Check Out</button>
+    </div>
+  </section>
