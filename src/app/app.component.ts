@@ -1,43 +1,76 @@
-import { Component } from '@angular/core';
-import { Product } from './product.model';
+import { Component, OnInit, DoCheck } from "@angular/core";
+import { Product } from "./product.model";
+import { ProductService } from "./product.service";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
 })
-export class AppComponent {
-  title = 'Alessandro Minh đẹp trai';
+export class AppComponent implements OnInit, DoCheck {
+  title = "Alessandro Minh đẹp trai";
 
-  products: Product[] = [
-    {
-      id: 1,
-      name: 'Alessandro Minh',
-      descript: 'Ông trùm',
-      image: 'https://scontent.fhan3-3.fna.fbcdn.net/v/t1.0-9/70427092_2978210222194545_1561733937997283328_n.jpg?_nc_cat=100&_nc_oc=AQnfQ76tIKJVkN3KI8Yorxp6Hz5ocsZ1YrHt6k6DSJTO_Uy2h9exH1rLL6iJswpjkMY&_nc_ht=scontent.fhan3-3.fna&oh=12b209e4ea0ea0595494b516b5a93cfa&oe=5E334199',
-      price: 1000000,
-      quantity: 1
-    },
-    {
-      id: 2,
-      name: 'Ngọc Trinh',
-      descript: 'Siêu mẫu',
-      image: 'http://mcnews1.media.netnews.vn/netnews/archive/images/2019092908/tinngan_080306_970538850_0.jpg',
-      price: 5000000,
-      quantity: 10 
-    },
-    {
-      id: 3,
-      name: 'Honey',
-      descript: 'Hoa hậu',
-      image: 'https://scontent.fhan3-2.fna.fbcdn.net/v/t1.0-1/71144136_1305970192904644_9087907505618550784_n.jpg?_nc_cat=107&_nc_oc=AQmzX94LjbGlS2IyDaoTzsV25jMnXJmYMfwZP4viUrzYZPwhhNTpGbJENZHcFNAkhDY&_nc_ht=scontent.fhan3-2.fna&oh=b6cc549e2c73f68a22cdb09d2cbfe6d5&oe=5E6168F0',
-      price: 10000000,
-      quantity: 2 
+  products: Product[];
+
+  promoCode: string = "";
+  numberSubtotal: number = 0;
+  numberVAT: number = 0;
+  numberTotal: number = 0;
+  numberItems: number = 0;
+  numberGiamGia: number = 0;
+
+  constructor(private productService: ProductService) {}
+
+  ngOnInit() {
+    //this.onTinhToan();
+    this.products = this.productService.getProducts();
+  }
+
+  ngDoCheck() {
+    this.onTinhToan();
+  }
+
+  handleRemoveProduct(id: number) {
+    this.productService.removeProduct(id);
+  }
+
+  handleChangeQuantity(cut) {
+    this.productService.changeQuantity(cut);
+    //this.onTinhToan();
+  }
+
+  handleApplyPromoCode(promo: string) {
+    this.promoCode = promo;
+  }
+
+  onGiamGia() {
+    if (this.promoCode == "minh") {
+      //alert("Discount 10.000.000 VND!!!");
+      this.numberTotal -= 10000000;
+      if (this.numberTotal < 0) {
+        this.numberTotal = 0;
+      }
+      this.numberGiamGia = -10000000;
+    } else {
+      //alert("Incorrect Code!!!");
+      this.numberGiamGia = 0;
     }
-  ]
+    
+  }
 
-  promoCode: string = '';  
-  numberSubtotal  : number = 1000000; 
-  numberVAT : number = 600000;  
-  numberTotal : number = 1500000;  
+  onTinhToan() {
+    this.numberGiamGia = 0;
+    this.numberItems = 0;
+    this.numberSubtotal = 0;
+    this.numberVAT = 0;
+    this.numberTotal = 0;
+
+    this.products.forEach(element => {
+      this.numberItems += element.quantity;
+      this.numberSubtotal += element.price * element.quantity;
+    });
+    this.numberVAT = this.numberSubtotal * 0.1;
+    this.numberTotal = this.numberSubtotal + this.numberVAT;
+    this.onGiamGia();
+  }
 }

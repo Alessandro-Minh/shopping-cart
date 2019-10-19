@@ -9,6 +9,7 @@ import { CartFooterComponent } from './cart-footer/cart-footer.component';
 
 import { registerLocaleData } from '@angular/common';
 import localeVi from '@angular/common/locales/vi';
+import { MyComponentComponent } from './my-component/my-component.component';
 
 registerLocaleData(localeVi, 'vi');
 
@@ -18,7 +19,8 @@ registerLocaleData(localeVi, 'vi');
     AppComponent,
     CartHeaderComponent,
     CartContentComponent,
-    CartFooterComponent
+    CartFooterComponent,
+    MyComponentComponent
   ],
   imports: [
     BrowserModule, FormsModule

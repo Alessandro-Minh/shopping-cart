@@ -8,9 +8,11 @@
   </head>
   <body>
     <main>
-      <app-cart-header [numberItems]="4"> </app-cart-header>
-      <app-cart-content [products]="products"></app-cart-content>
-      <app-cart-footer [promoCode]="promoCode" [numberSubtotal]="numberSubtotal" [numberVAT]="numberVAT" [numberTotal]="numberTotal"></app-cart-footer>
+      <app-cart-header [numberItems]="numberItems"> </app-cart-header>
+      <app-cart-content [products]="products" (onRemoveProduct)="handleRemoveProduct($event)" (onInputQuantity)="handleChangeQuantity($event)"></app-cart-content>
+      <app-cart-footer *ngIf="products.length>0"  [promoCode]="promoCode" [numberSubtotal]="numberSubtotal" [numberVAT]="numberVAT" [numberTotal]="numberTotal" 
+      (onApplyPromoCode)="handleApplyPromoCode($event)" [numberGiamGia]="numberGiamGia"></app-cart-footer>
+      <h1 style="text-align: center" *ngIf="products.length==0"> Bạn chưa chọn sản phẩm nào! </h1>
     </main>
   </body>
 </html>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../product.model';
 
 @Component({
@@ -8,20 +8,20 @@ import { Product } from '../product.model';
 export class CartContentComponent {
   @Input() products:Product[];
 
-  removeProduct(id:number){
-    var tl = confirm("Do you want to delete?")
-    if (tl) {
-      const index = this.products.findIndex(product => product.id === id);
-      var cut = this.products[index].name;
-      if (index !== -1) {
-        this.products.splice(index,1);        
-      }
-      alert("Đã xoá " + cut);
-    }
+  @Output() onRemoveProduct = new EventEmitter();
+
+  @Output() onInputQuantity = new EventEmitter();
+
+  removeProduct(id:number) {
+    this.onRemoveProduct.emit(id);
   }
   
   inputQuantity(id:number, inputElement:HTMLInputElement){
-    console.log(id, inputElement.value);
+    if (parseInt(inputElement.value)>=0){
+    } else {
+      inputElement.value = '0';
+    }
+    this.onInputQuantity.emit({id:id, value:inputElement.value});
   }
 
 

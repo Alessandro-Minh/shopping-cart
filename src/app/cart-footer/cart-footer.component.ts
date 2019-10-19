@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-cart-footer',
@@ -9,10 +9,13 @@ export class CartFooterComponent {
 @Input() promoCode:string;  
 @Input() numberSubtotal:number;  
 @Input() numberVAT:number;  
-@Input() numberTotal:number;  
+@Input() numberTotal:number; 
+@Input() numberGiamGia:number;
 
-applyPromoCode(){
-  console.log(this.promoCode)
+@Output() onApplyPromoCode = new EventEmitter();
+
+applyPromoCode(promo:string){
+  this.onApplyPromoCode.emit(promo);
 }
 
 }
